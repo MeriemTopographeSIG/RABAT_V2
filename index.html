@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/Revetement_2.js"></script>
+        <script src="data/Batiment_3.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[34.011518542792906,-6.862820482920366],[34.01865991607892,-6.846863459160109]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_imagesatellite_0');
+        map.getPane('pane_imagesatellite_0').style.zIndex = 400;
+        var layer_imagesatellite_0 = L.tileLayer('https://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
+            pane: 'pane_imagesatellite_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 18
+        });
+        layer_imagesatellite_0;
+        map.addLayer(layer_imagesatellite_0);
+        map.createPane('pane_GEOREF_1');
+        map.getPane('pane_GEOREF_1').style.zIndex = 401;
+        var img_GEOREF_1 = 'data/GEOREF_1.png';
+        var img_bounds_GEOREF_1 = [[34.011639708512256,-6.86257189329769],[34.02074564376762,-6.851922216603655]];
+        var layer_GEOREF_1 = new L.imageOverlay(img_GEOREF_1,
+                                              img_bounds_GEOREF_1,
+                                              {pane: 'pane_GEOREF_1'});
+        bounds_group.addLayer(layer_GEOREF_1);
+        map.addLayer(layer_GEOREF_1);
+        function pop_Revetement_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Superficie</th>\
+                        <td>' + (feature.properties['AIR'] !== null ? autolinker.link(feature.properties['AIR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ID</th>\
+                        <td>' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Revetement_2_0() {
+            return {
+                pane: 'pane_Revetement_2',
+                interactive: true,
+            }
+        }
+        function style_Revetement_2_1() {
+            return {
+                pane: 'pane_Revetement_2',
+                opacity: 1,
+                color: 'rgba(153,80,119,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Revetement_2');
+        map.getPane('pane_Revetement_2').style.zIndex = 402;
+        map.getPane('pane_Revetement_2').style['mix-blend-mode'] = 'normal';
+        var layer_Revetement_2 = new L.geoJson.multiStyle(json_Revetement_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Revetement_2',
+            layerName: 'layer_Revetement_2',
+            pane: 'pane_Revetement_2',
+            onEachFeature: pop_Revetement_2,
+            styles: [style_Revetement_2_0,style_Revetement_2_1,]
+        });
+        bounds_group.addLayer(layer_Revetement_2);
+        map.addLayer(layer_Revetement_2);
+        function pop_Batiment_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Superficie</th>\
+                        <td>' + (feature.properties['AIR'] !== null ? autolinker.link(feature.properties['AIR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ID</th>\
+                        <td>' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Batiment_3_0() {
+            return {
+                pane: 'pane_Batiment_3',
+                interactive: true,
+            }
+        }
+        function style_Batiment_3_1() {
+            return {
+                pane: 'pane_Batiment_3',
+                opacity: 1,
+                color: 'rgba(128,14,16,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Batiment_3');
+        map.getPane('pane_Batiment_3').style.zIndex = 403;
+        map.getPane('pane_Batiment_3').style['mix-blend-mode'] = 'normal';
+        var layer_Batiment_3 = new L.geoJson.multiStyle(json_Batiment_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Batiment_3',
+            layerName: 'layer_Batiment_3',
+            pane: 'pane_Batiment_3',
+            onEachFeature: pop_Batiment_3,
+            styles: [style_Batiment_3_0,style_Batiment_3_1,]
+        });
+        bounds_group.addLayer(layer_Batiment_3);
+        map.addLayer(layer_Batiment_3);
+        setBounds();
+        L.ImageOverlay.include({
+            getBounds: function () {
+                return this._bounds;
+            }
+        });
+        </script>
+    </body>
+</html>
